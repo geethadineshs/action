@@ -30,7 +30,7 @@ jobs:
         # EC2 Public IP
         EC2_PUBLIC_IP=13.127.85.156
 
-        # Copy project files to the EC2 instance
+        # Copy project files to the EC2 instance (use './' after checkout)
         scp -o StrictHostKeyChecking=no -i revision.pem -r ./ ubuntu@$EC2_PUBLIC_IP:/home/ubuntu/sample-node-app
 
         # SSH into the EC2 instance and deploy the application
