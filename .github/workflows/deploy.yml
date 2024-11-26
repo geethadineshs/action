@@ -1,0 +1,26 @@
+name: Deploy Node.js App to AWS EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Deploy to AWS EC2
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      run: |
+        scp -o StrictHostKeyChecking=no -i ${{ secrets.EC2_SSH_KEY }} -r . ubuntu@13.127.85.156:/home/ubuntu/sample-node-app
+        ssh -o StrictHostKeyChecking=no -i ${{ secrets.EC2_SSH_KEY }} ubuntu@13.127.85.156<< EOF
+          cd /home/ubuntu/sample-node-app
+          npm install
+          pm2 restart sample-node-app || pm2 start app.js --name "sample-node-app"
+        EOF
