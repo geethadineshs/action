@@ -37,8 +37,8 @@ jobs:
         ls -la
 
         # Copy project files to the EC2 instance
-        chmod 600 /var/www/geetha.com
-        scp -o StrictHostKeyChecking=no -i revision.pem -r ./samplenodeapp ubuntu@$EC2_PUBLIC_IP:/var/www/geetha.com
+        
+        scp -o StrictHostKeyChecking=no -i revision.pem -r ./samplenodeapp ubuntu@$EC2_PUBLIC_IP:/home/ubuntu
 
         # SSH into the EC2 instance and deploy the application
         ssh -o StrictHostKeyChecking=no -i revision.pem ubuntu@$EC2_PUBLIC_IP << EOF
