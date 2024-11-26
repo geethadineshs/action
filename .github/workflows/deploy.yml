@@ -25,7 +25,7 @@ jobs:
       run: |
         # Save the EC2 private key from GitHub Secrets
         echo "${{ secrets.EC2_SSH_KEY }}" > C:\Users\T460\Downloads\revision.pem
-        chmod 600 revision.pem
+        chmod 600 C:\Users\T460\Downloads\revision.pem
         
         # Replace <EC2_PUBLIC_IP> with your EC2 instance public IP
         EC2_PUBLIC_IP=13.127.85.156
